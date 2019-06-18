@@ -1,0 +1,16 @@
+[Unit]
+Description=DockerCompose Service
+After=docker.service
+
+[Service]
+Type=simple
+# Another Type option: forking
+User=root
+WorkingDirectory=/home/ec2-user
+ExecStart=/home/ec2-user/start-docker-compose.sh
+ExecReload=/usr/local/bin/docker-compose -f /home/ec2-user/docker-compose.yml down && /usr/local/bin/docker-compose -f /home/ec2-user/docker-compose.yml up -d
+Restart=on-failure
+# Other Restart options: or always, on-abort, etc
+
+[Install]
+WantedBy=multi-user.target
